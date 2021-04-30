@@ -8,20 +8,27 @@ const getters = {};
 
 const actions = {
   createLayer: (context, layer) => {
-    context.commit('createLayer', layer)
+    context.commit("createLayer", layer);
+  },
+  selectLayer: (context, layerId) => {
+    context.commit("selectLayer", layerId);
   },
   resetState: (context) => {
-    context.commit(RESET_STATE);
-  }
+    context.commit("resetState");
+  },
 };
 
 const mutations = {
-  createLayer (state, payload) {
+  createLayer(state, payload) {
     state.push(payload);
+  },
+  selectLayer(state, payload) {
+    state.forEach(element => element.selected = false);
+    state.find((item) => item.id === payload).selected = true;
   },
   resetState: (state) => {
     Object.assign(state, getDefaultState());
-  }
+  },
 };
 
 export const layerModule = {
@@ -29,5 +36,5 @@ export const layerModule = {
   getters: getters,
   state: state,
   actions: actions,
-  mutations: mutations
+  mutations: mutations,
 };

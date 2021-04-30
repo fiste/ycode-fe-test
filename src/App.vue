@@ -7,10 +7,15 @@
       <section
         class="w-full h-full relative z-10 scrollbar text-center text-none overflow-auto"
       >
-        <button @click="createLayer">Add layer</button>
+        <button
+          class="w-1/4 py-2 my-5 items-center justify-center rounded-md bg-gray-800 text-white"
+          @click="createLayer(defaultLayer())"
+        >
+          Add layer
+        </button>
 
-        <template v-for="(layer, i) in layers" :key="i">
-          <Layer />
+        <template v-for="(layer, i) in layers" :key="layer.id">
+          <Layer :layer="layer" />
         </template>
       </section>
 
@@ -20,7 +25,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
 import Design from "./components/Design.vue";
 import Layers from "./components/Layers.vue";
@@ -33,17 +38,29 @@ export default {
     Design,
     NavBar,
     Layers,
-    Layer
+    Layer,
   },
 
-  computed: mapState({
-    layers: state => state.layer
-  }),
+  computed: {
+    ...mapState({
+      layers: (state) => state.layer,
+    }),
+  },
 
   methods: {
-    createLayer() {
-      this.$store.dispatch('layer/createLayer', { id: this.layers.length + 1, text: 'Add some text here', class: 'abc' })
-      console.log(this.layers);
+    ...mapActions({
+      createLayer: "layer/createLayer",
+    }),
+
+    defaultLayer() {
+      const layer = {
+        id: Date.now(),
+        text: "Add some text",
+        class: "",
+        selected: false,
+      };
+
+      return layer;
     },
   },
 };
