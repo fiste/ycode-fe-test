@@ -6,26 +6,25 @@
       { 'border-blue-400': layer.selected },
     ]"
     @click="selectLayer(layer.id)"
+    @dblclick="turnOnEditMode"
   >
-    <p class="flex-1 p-2">{{ layer.text }}</p>
+    <p
+      :class="`flex-1 p-2 font-${getDesignOptions('font')} text-${getDesignOptions('align')} text-${getDesignOptions('size')} text-${getDesignOptions('color')}`"
+      v-show="!editMode"
+    >
+      {{ layer.text }}
+    </p>
 
-    <div class="flex-2">
-      <button
-        :class="[
-          'p-2 mr-2 items-center justify-center rounded-md text-white hover:bg-blue-400 transform motion-safe:hover:scale-110',
-          { 'bg-gray-800': layer.selected },
-        ]"
-      >
-        Edit
-      </button>
-      <button
-        :class="[
-          'p-2 mr-2 items-center justify-center rounded-md text-white hover:bg-blue-400 transform motion-safe:hover:scale-110',
-          { 'bg-gray-800': layer.selected },
-        ]"
-      >
-        Delete
-      </button>
+    <div
+      :class="`w-1/4 flex flex-1 self-center font-${getDesignOptions('font')} text-${getDesignOptions('align')} text-${getDesignOptions('size')} text-${getDesignOptions('color')} `"
+      v-show="editMode"
+    >
+      <input
+        v-model="layer.text"
+        class="editLayer flex flex-1 p-2"
+        ref="editLayer"
+        @blur="saveEditChanges(layer.text)"
+      />
     </div>
   </div>
 </template>
@@ -42,10 +41,35 @@ export default {
     },
   },
 
+  data() {
+    return {
+      editMode: false,
+    };
+  },
+
   methods: {
     ...mapActions({
       selectLayer: "layer/selectLayer",
+      editLayerText: "layer/editLayerText",
     }),
+
+    turnOnEditMode() {
+      if (!this.editMode) {
+        this.editMode = true;
+        this.$nextTick(() => {
+          this.$refs.editLayer.focus();
+        });
+      }
+    },
+
+    saveEditChanges(text) {
+      this.editLayerText(text);
+      this.editMode = false;
+    },
+
+    getDesignOptions(option) {
+      return this.layer.design.find((item) => item.name === option).selected;
+    },
   },
 };
 </script>

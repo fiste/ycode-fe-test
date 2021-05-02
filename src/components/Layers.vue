@@ -9,7 +9,7 @@
       <div class="flex items-center leading-5 py-px">Layers</div>
     </header>
 
-    <div v-for="(layer, i) in layers" :key="layer.id">
+    <template v-for="(layer, i) in getCurrentLayers" :key="layer.id">
       <div
         :class="[
           'text-white text-sm flex justify-between items-center p-3 hover:bg-white hover:text-gray-800',
@@ -17,14 +17,14 @@
         ]"
         @click="selectLayer(layer.id)"
       >
-        Layer {{ i }}
+        Layer {{ i + 1 }}
       </div>
-    </div>
+    </template>
   </aside>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 import Icon from "./Icon.vue";
 
@@ -33,9 +33,15 @@ export default {
     Icon,
   },
 
-  computed: mapState({
-    layers: (state) => state.layer,
-  }),
+  computed: {
+    ...mapState({
+      layers: (state) => state.layer,
+    }),
+
+    ...mapGetters({
+      getCurrentLayers: "layer/getCurrentLayers"
+    })
+  },
 
   methods: {
     ...mapActions({
