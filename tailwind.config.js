@@ -5,22 +5,31 @@ module.exports = {
     fontFamily: {
       arial: ["Arial", "sans-serif"],
       helvetica: ["Helvetica", "sans-serif"],
-      verdana: ["Verdana", "sans-serif"]
+      verdana: ["Verdana", "sans-serif"],
+    },
+    screens: {
+      sm: "480px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
     },
     extend: {
       colors: {
         gray: {
           100: "#F8F8F8",
           200: "#E7E7E7",
-          300: "#B3B6B7",
+          300: "#9d9fa3",
           350: "#646768",
-          400: "#56595A",
+          400: "#5a5a5a",
           450: "#3B3F40",
           500: "#333436",
-          600: "#282c2d",
+          600: "#222628",
           700: "#202425",
           800: "#171B1C",
-          900: "#101314",
+          900: "#1d1e1f",
+        },
+        green: {
+          500: "#17a65e",
         },
       },
     },
