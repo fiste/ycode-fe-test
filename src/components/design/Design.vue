@@ -1,7 +1,7 @@
 <template>
   <aside
     id="right-panel"
-    class="relative bg-gray-600 border-l border-gray-600 h-full w-64 flex flex-col overflow-hidden flex-shrink-0"
+    class="relative bg-gray-600 border-l border-gray-600 h-full w-40 lg:w-64 flex flex-col flex-shrink-0"
   >
     <header
       class="text-white text-xs font-medium tracking-wide flex justify-between items-center mb-3 p-3"
@@ -9,7 +9,7 @@
       <div class="flex items-center leading-5 py-px text-gray-300">Design</div>
     </header>
     <div class="flex flex-col p-3" v-if="layerForEdit">
-      <h3 class="text-white mb-5 text-base">
+      <h3 class="text-white mb-5 text-xs lg:text-base">
         Selected layer: {{ layerForEdit.name }}
       </h3>
       <div
@@ -26,7 +26,7 @@
       <div class="flex flex-grow mt-3">
         <button
           :class="[
-            'p-2 mr-2 items-center justify-center rounded-md text-white bg-red-500 transition duration-200 ease-in-out transform hover:scale-110 focus:outline-none',
+            'p-2 mr-2 items-center justify-center rounded-md text-white text-xs lg:text-sm bg-red-500 transition duration-200 ease-in-out transform hover:scale-110 focus:outline-none',
           ]"
           @click="deleteSelectedLayer()"
         >

@@ -7,12 +7,6 @@ module.exports = {
       helvetica: ["Helvetica", "sans-serif"],
       verdana: ["Verdana", "sans-serif"],
     },
-    screens: {
-      sm: "480px",
-      md: "768px",
-      lg: "976px",
-      xl: "1440px",
-    },
     extend: {
       colors: {
         gray: {
@@ -32,7 +26,18 @@ module.exports = {
           500: "#17a65e",
         },
       },
+
+      screens: {
+        sm: "480px",
+        md: "768px",
+        lg: "976px",
+        xl: "1440px",
+        portraitMobile: { raw: "(orientation: portrait) and (max-width: 768px)" },
+      },
     },
+    rotate: {
+      '30': '30deg'
+    }
   },
   variants: {
     extend: {},
